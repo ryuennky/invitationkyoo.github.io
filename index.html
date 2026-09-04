@@ -1,1167 +1,1016 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Kiyo's Invitation 🎀</title>
+```
+<title>Kiyo's Invitation 🎀</title>
 
-    <style>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    body {
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+
+        background:
+            radial-gradient(circle at 15% 20%, #ffd6e7 0%, transparent 30%),
+            radial-gradient(circle at 85% 80%, #ffc1d8 0%, transparent 30%),
+            linear-gradient(135deg, #fff7fa, #ffe8f0);
+
+        color: #2b2025;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        overflow: hidden;
+    }
+
+    /* ==========================
+       BACKGROUND DECORATIONS
+    ========================== */
+
+    .decoration {
+        position: fixed;
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.35;
+        z-index: 0;
+    }
+
+    .decor1 {
+        top: 8%;
+        left: 8%;
+        font-size: 35px;
+        transform: rotate(-15deg);
+    }
+
+    .decor2 {
+        bottom: 12%;
+        right: 8%;
+        font-size: 30px;
+        transform: rotate(12deg);
+    }
+
+    .decor3 {
+        top: 15%;
+        right: 12%;
+        font-size: 20px;
+    }
+
+    .decor4 {
+        bottom: 15%;
+        left: 12%;
+        font-size: 22px;
+    }
+
+    /* ==========================
+       MAIN CARD
+    ========================== */
+
+    .card {
+        width: 90%;
+        max-width: 680px;
+        min-height: 520px;
+
+        background: rgba(255, 255, 255, 0.88);
+
+        border: 1px solid #f3c4d4;
+        border-radius: 25px;
+
+        padding: 35px;
+
+        position: relative;
+        text-align: center;
+
+        box-shadow:
+            0 20px 60px rgba(156, 67, 99, 0.15);
+
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    .card::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 5px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #ff9fbd,
+                #e96b96,
+                #ffb7ce
+            );
+    }
+
+    .card::after {
+        content: "♡";
+
+        position: absolute;
+        top: 15px;
+        right: 22px;
+
+        font-size: 30px;
+        color: #f2a4bc;
+        opacity: 0.5;
+    }
+
+    /* ==========================
+       TOP BAR
+    ========================== */
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding-bottom: 15px;
+
+        border-bottom: 1px solid #f1d5df;
+
+        color: #9b7784;
+
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .status {
+        color: #e47799;
+        font-weight: bold;
+    }
+
+    /* ==========================
+       START SCREEN
+    ========================== */
+
+    #startScreen {
+        min-height: 410px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .game-icon {
+        font-size: 62px;
+        margin-bottom: 18px;
+
+        animation: float 2.5s ease-in-out infinite;
+    }
+
+    #startScreen h1 {
+        font-size: 42px;
+        color: #3b2930;
+
+        margin-bottom: 12px;
+    }
+
+    #startScreen h1 span {
+        color: #df6f95;
+    }
+
+    #startScreen p {
+        color: #856d77;
+
+        font-size: 17px;
+        line-height: 1.7;
+
+        margin-bottom: 30px;
+    }
+
+    /* ==========================
+       START BUTTON
+    ========================== */
+
+    #startButton {
+        background: #e8799c;
+        color: white;
+
+        border: none;
+
+        padding: 15px 45px;
+
+        border-radius: 50px;
+
+        font-size: 17px;
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.25s;
+
+        box-shadow:
+            0 8px 20px rgba(232, 121, 156, 0.25);
+    }
+
+    #startButton:hover {
+        background: #df648b;
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 10px 25px rgba(232, 121, 156, 0.35);
+    }
+
+    /* ==========================
+       QUESTION SCREEN
+    ========================== */
+
+    #questionScreen {
+        display: none;
+
+        min-height: 410px;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .request-label {
+        color: #df7195;
+
+        font-size: 12px;
+        letter-spacing: 3px;
+
+        font-weight: bold;
+
+        margin-bottom: 20px;
+    }
+
+    #question {
+        font-size: 29px;
+        line-height: 1.5;
+
+        max-width: 570px;
+
+        color: #3b2930;
+
+        margin-bottom: 40px;
+
+        animation: fadeIn 0.35s ease;
+    }
+
+    /* ==========================
+       BUTTON AREA
+    ========================== */
+
+    .buttonArea {
+        width: 100%;
+        height: 160px;
+
+        position: relative;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .answerButton {
+        border: none;
+
+        padding: 14px 32px;
+
+        border-radius: 50px;
+
+        font-size: 16px;
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition:
+            background 0.2s,
+            transform 0.2s;
+    }
+
+    /* ==========================
+       YES BUTTON
+    ========================== */
+
+    #yesButton {
+        position: absolute;
+
+        left: calc(50% - 115px);
+        top: 0;
+
+        background: #e8799c;
+        color: white;
+
+        box-shadow:
+            0 6px 15px rgba(232, 121, 156, 0.2);
+
+        z-index: 2;
+    }
+
+    #yesButton:hover {
+        background: #df648b;
+
+        transform: scale(1.07);
+    }
+
+    /* ==========================
+       NO BUTTON
+    ========================== */
+
+    #noButton {
+        position: absolute;
+
+        left: calc(50% + 15px);
+        top: 0;
+
+        background: #fff;
+        color: #8b6874;
+
+        border: 1px solid #e6c5d1;
+
+        transition:
+            left 0.25s ease,
+            top 0.25s ease,
+            transform 0.2s;
+
+        z-index: 3;
+    }
+
+    #noButton:hover {
+        background: #fff5f8;
+    }
+
+    /* ==========================
+       FINAL SCREEN
+    ========================== */
+
+    #finalScreen {
+        display: none;
+
+        min-height: 410px;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .final-icon {
+        font-size: 65px;
+
+        margin-bottom: 18px;
+
+        animation: float 2.5s ease-in-out infinite;
+    }
+
+    #finalScreen h1 {
+        color: #df6f95;
+
+        font-size: 36px;
+
+        margin-bottom: 25px;
+    }
+
+    #finalScreen p {
+        color: #856d77;
+
+        font-size: 19px;
+
+        line-height: 1.8;
+    }
+
+    .final-message {
+        color: #3b2930;
+
+        font-weight: bold;
+
+        font-size: 20px;
+    }
+
+    .miss-you {
+        color: #df6f95;
+
+        font-size: 25px;
+
+        font-weight: bold;
+    }
+
+    /* ==========================
+       DECLINED SCREEN
+    ========================== */
+
+    #declinedScreen {
+        display: none;
+
+        min-height: 410px;
+
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    #declinedScreen h1 {
+        color: #df6f95;
+
+        font-size: 34px;
+
+        margin-bottom: 20px;
+    }
+
+    #declinedScreen p {
+        color: #856d77;
+
+        font-size: 18px;
+
+        line-height: 1.8;
+    }
+
+    /* ==========================
+       ANIMATIONS
+    ========================== */
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+
+            transform:
+                translateY(12px);
         }
 
-        body {
-            min-height: 100vh;
+        to {
+            opacity: 1;
 
-            font-family: Arial, Helvetica, sans-serif;
+            transform:
+                translateY(0);
+        }
+    }
 
-            background:
-                radial-gradient(circle at 15% 20%, #ffd6e7 0%, transparent 30%),
-                radial-gradient(circle at 85% 80%, #ffc1d8 0%, transparent 30%),
-                linear-gradient(135deg, #fff7fa, #ffe8f0);
-
-            color: #2b2025;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            overflow: hidden;
+    @keyframes float {
+        0%, 100% {
+            transform:
+                translateY(0);
         }
 
+        50% {
+            transform:
+                translateY(-8px);
+        }
+    }
 
-        /* ==========================
-           BACKGROUND DECORATIONS
-        ========================== */
-
-        .decoration {
-            position: fixed;
-
-            pointer-events: none;
-
-            user-select: none;
-
-            opacity: 0.35;
-
-            z-index: 0;
+    @keyframes shake {
+        0% {
+            transform:
+                translateX(0);
         }
 
-        .decor1 {
-            top: 8%;
-            left: 8%;
-
-            font-size: 35px;
-
-            transform: rotate(-15deg);
+        25% {
+            transform:
+                translateX(-6px);
         }
 
-        .decor2 {
-            bottom: 12%;
-            right: 8%;
-
-            font-size: 30px;
-
-            transform: rotate(12deg);
+        50% {
+            transform:
+                translateX(6px);
         }
 
-        .decor3 {
-            top: 15%;
-            right: 12%;
-
-            font-size: 20px;
+        75% {
+            transform:
+                translateX(-6px);
         }
 
-        .decor4 {
-            bottom: 15%;
-            left: 12%;
-
-            font-size: 22px;
+        100% {
+            transform:
+                translateX(0);
         }
+    }
 
+    .shake {
+        animation:
+            shake 0.25s;
+    }
 
-        /* ==========================
-           MAIN CARD
-        ========================== */
+    /* ==========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
 
         .card {
+            width: 92%;
 
-            width: 90%;
+            padding: 25px 20px;
 
-            max-width: 680px;
-
-            min-height: 520px;
-
-            background: rgba(255, 255, 255, 0.88);
-
-            border: 1px solid #f3c4d4;
-
-            border-radius: 25px;
-
-            padding: 35px;
-
-            position: relative;
-
-            text-align: center;
-
-            box-shadow:
-                0 20px 60px rgba(156, 67, 99, 0.15);
-
-            overflow: hidden;
-
-            z-index: 2;
+            min-height: 500px;
         }
-
-
-        /* Soft pink top line */
-
-        .card::before {
-
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 5px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ff9fbd,
-                    #e96b96,
-                    #ffb7ce
-                );
-        }
-
-
-        /* Small corner decoration */
-
-        .card::after {
-
-            content: "♡";
-
-            position: absolute;
-
-            top: 15px;
-            right: 22px;
-
-            font-size: 30px;
-
-            color: #f2a4bc;
-
-            opacity: 0.5;
-        }
-
-
-        /* ==========================
-           TOP BAR
-        ========================== */
-
-        .top-bar {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding-bottom: 15px;
-
-            border-bottom: 1px solid #f1d5df;
-
-            color: #9b7784;
-
-            font-size: 12px;
-
-            letter-spacing: 1.5px;
-        }
-
-        .status {
-
-            color: #e47799;
-
-            font-weight: bold;
-        }
-
-
-        /* ==========================
-           START SCREEN
-        ========================== */
-
-        #startScreen {
-
-            min-height: 410px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-        }
-
-
-        .game-icon {
-
-            font-size: 62px;
-
-            margin-bottom: 18px;
-
-            animation: float 2.5s ease-in-out infinite;
-        }
-
 
         #startScreen h1 {
-
-            font-size: 42px;
-
-            color: #3b2930;
-
-            margin-bottom: 12px;
+            font-size: 33px;
         }
 
-
-        #startScreen h1 span {
-
-            color: #df6f95;
-        }
-
-
-        #startScreen p {
-
-            color: #856d77;
-
-            font-size: 17px;
-
-            line-height: 1.7;
+        #question {
+            font-size: 23px;
 
             margin-bottom: 30px;
         }
 
-
-        /* ==========================
-           START BUTTON
-        ========================== */
-
-        #startButton {
-
-            background: #e8799c;
-
-            color: white;
-
-            border: none;
-
-            padding: 15px 45px;
-
-            border-radius: 50px;
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.25s;
-
-            box-shadow:
-                0 8px 20px rgba(232, 121, 156, 0.25);
-        }
-
-
-        #startButton:hover {
-
-            background: #df648b;
-
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 10px 25px rgba(232, 121, 156, 0.35);
-        }
-
-
-        /* ==========================
-           QUESTION SCREEN
-        ========================== */
-
-        #questionScreen {
-
-            display: none;
-
-            min-height: 410px;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-        }
-
-
-        .request-label {
-
-            color: #df7195;
-
-            font-size: 12px;
-
-            letter-spacing: 3px;
-
-            font-weight: bold;
-
-            margin-bottom: 20px;
-        }
-
-
-        #question {
-
-            font-size: 29px;
-
-            line-height: 1.5;
-
-            max-width: 570px;
-
-            color: #3b2930;
-
-            margin-bottom: 40px;
-
-            animation: fadeIn 0.35s ease;
-        }
-
-
-        /* ==========================
-           BUTTON AREA
-        ========================== */
-
-        .buttonArea {
-
-            width: 100%;
-
-            height: 160px;
-
-            position: relative;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: flex-start;
-
-            gap: 20px;
-        }
-
-
-        .answerButton {
-
-            border: none;
-
-            padding: 14px 32px;
-
-            border-radius: 50px;
-
-            font-size: 16px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition:
-                background 0.2s,
-                transform 0.2s;
-        }
-
-
-        /* YES */
-
-        #yesButton {
-
-            background: #e8799c;
-
-            color: white;
-
-            box-shadow:
-                0 6px 15px rgba(232, 121, 156, 0.2);
-        }
-
-
-        #yesButton:hover {
-
-            background: #df648b;
-
-            transform: scale(1.07);
-        }
-
-
-        /* NO */
-
-        #noButton {
-
-            position: absolute;
-
-            left: calc(50% + 20px);
-
-            top: 0;
-
-            background: #fff;
-
-            color: #8b6874;
-
-            border: 1px solid #e6c5d1;
-
-            transition:
-                left 0.25s ease,
-                top 0.25s ease,
-                transform 0.2s;
-        }
-
-
-        #noButton:hover {
-
-            background: #fff5f8;
-        }
-
-
-        /* ==========================
-           FINAL SCREEN
-        ========================== */
-
-        #finalScreen {
-
-            display: none;
-
-            min-height: 410px;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-        }
-
-
-        .final-icon {
-
-            font-size: 65px;
-
-            margin-bottom: 18px;
-
-            animation: float 2.5s ease-in-out infinite;
-        }
-
-
         #finalScreen h1 {
-
-            color: #df6f95;
-
-            font-size: 36px;
-
-            margin-bottom: 25px;
+            font-size: 29px;
         }
-
 
         #finalScreen p {
-
-            color: #856d77;
-
-            font-size: 19px;
-
-            line-height: 1.8;
+            font-size: 17px;
         }
 
+        .answerButton {
+            font-size: 15px;
 
-        .final-message {
-
-            color: #3b2930;
-
-            font-weight: bold;
-
-            font-size: 20px;
+            padding: 12px 24px;
         }
 
-
-        .miss-you {
-
-            color: #df6f95;
-
-            font-size: 25px;
-
-            font-weight: bold;
+        #yesButton {
+            left: calc(50% - 100px);
         }
 
-
-        /* ==========================
-           DECLINED SCREEN
-        ========================== */
-
-        #declinedScreen {
-
-            display: none;
-
-            min-height: 410px;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
+        #noButton {
+            left: calc(50% + 10px);
         }
+    }
+</style>
+```
 
-
-        #declinedScreen h1 {
-
-            color: #df6f95;
-
-            font-size: 34px;
-
-            margin-bottom: 20px;
-        }
-
-
-        #declinedScreen p {
-
-            color: #856d77;
-
-            font-size: 18px;
-
-            line-height: 1.8;
-        }
-
-
-        /* ==========================
-           ANIMATIONS
-        ========================== */
-
-        @keyframes fadeIn {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(12px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-        }
-
-
-        @keyframes float {
-
-            0%, 100% {
-                transform:
-                    translateY(0);
-            }
-
-            50% {
-                transform:
-                    translateY(-8px);
-            }
-        }
-
-
-        @keyframes shake {
-
-            0% {
-                transform:
-                    translateX(0);
-            }
-
-            25% {
-                transform:
-                    translateX(-6px);
-            }
-
-            50% {
-                transform:
-                    translateX(6px);
-            }
-
-            75% {
-                transform:
-                    translateX(-6px);
-            }
-
-            100% {
-                transform:
-                    translateX(0);
-            }
-        }
-
-
-        .shake {
-
-            animation:
-                shake 0.25s;
-        }
-
-
-        /* ==========================
-           MOBILE
-        ========================== */
-
-        @media (max-width: 600px) {
-
-            .card {
-
-                width: 92%;
-
-                padding: 25px 20px;
-
-                min-height: 500px;
-            }
-
-
-            #startScreen h1 {
-
-                font-size: 33px;
-            }
-
-
-            #question {
-
-                font-size: 23px;
-
-                margin-bottom: 30px;
-            }
-
-
-            #finalScreen h1 {
-
-                font-size: 29px;
-            }
-
-
-            #finalScreen p {
-
-                font-size: 17px;
-            }
-
-
-            .answerButton {
-
-                font-size: 15px;
-
-                padding: 12px 24px;
-            }
-
-        }
-
-    </style>
 </head>
-
 
 <body>
 
+```
+<!-- BACKGROUND DECORATIONS -->
 
-    <!-- ==========================
-         BACKGROUND DECORATIONS
-    ========================== -->
+<div class="decoration decor1">🎀</div>
+<div class="decoration decor2">✨</div>
+<div class="decoration decor3">♡</div>
+<div class="decoration decor4">🌷</div>
 
-    <div class="decoration decor1">🎀</div>
 
-    <div class="decoration decor2">✨</div>
+<!-- MAIN CARD -->
 
-    <div class="decoration decor3">♡</div>
+<div class="card">
 
-    <div class="decoration decor4">🌷</div>
+    <!-- TOP BAR -->
 
+    <div class="top-bar">
 
-    <!-- ==========================
-         MAIN CARD
-    ========================== -->
+        <span>
+            A LITTLE SOMETHING FOR KIYO 🎀
+        </span>
 
-    <div class="card">
-
-
-        <!-- TOP BAR -->
-
-        <div class="top-bar">
-
-            <span>
-                A LITTLE SOMETHING FOR KIYO 🎀
-            </span>
-
-            <span class="status">
-                ● ONLINE
-            </span>
-
-        </div>
-
-
-        <!-- ==========================
-             START
-        ========================== -->
-
-        <div id="startScreen">
-
-            <div class="game-icon">
-                🎮
-            </div>
-
-
-            <h1>
-                Hey <span>Kiyo</span> :)
-            </h1>
-
-
-            <p>
-
-                I have a small request for you...
-
-                <br>
-
-                and you probably already know
-                what this is about. 🙄
-
-                <br><br>
-
-                Just humor me for a second. 🎀
-
-            </p>
-
-
-            <button id="startButton">
-
-                see what I want 👀
-
-            </button>
-
-        </div>
-
-
-        <!-- ==========================
-             QUESTION SCREEN
-        ========================== -->
-
-        <div id="questionScreen">
-
-
-            <div class="request-label">
-
-                VERY IMPORTANT QUESTION 🎮
-
-            </div>
-
-
-            <h2 id="question">
-
-                Kiyo, would you like to play ML with me? 🥺
-
-            </h2>
-
-
-            <div class="buttonArea">
-
-
-                <button
-                    class="answerButton"
-                    id="yesButton">
-
-                    YES :)
-
-                </button>
-
-
-                <button
-                    class="answerButton"
-                    id="noButton">
-
-                    NO 😭
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- ==========================
-             ACCEPTED
-        ========================== -->
-
-        <div id="finalScreen">
-
-
-            <div class="final-icon">
-
-                🎮✨
-
-            </div>
-
-
-            <h1>
-
-                MATCH ACCEPTED! 🎀
-
-            </h1>
-
-
-            <p>
-
-
-                <span class="final-message">
-
-                    I knew you wouldn't say no to me
-                    you tsundere 😭
-
-                </span>
-
-
-                <br><br>
-
-
-                See? That wasn't so hard. 🙄
-
-
-                <br><br>
-
-
-                <span class="miss-you">
-
-                    i miss u :3
-
-                </span>
-
-
-            </p>
-
-        </div>
-
-
-        <!-- ==========================
-             DECLINED
-        ========================== -->
-
-        <div id="declinedScreen">
-
-
-            <div class="final-icon">
-
-                🥲
-
-            </div>
-
-
-            <h1>
-
-                okay then...
-
-            </h1>
-
-
-            <p>
-
-                I tried. 😭
-
-                <br><br>
-
-                Ryuen is disappointed.
-
-                <br>
-
-                Very disappointed.
-
-                <br><br>
-
-                You still owe me food though. 🙄
-
-            </p>
-
-        </div>
-
+        <span class="status">
+            ● ONLINE
+        </span>
 
     </div>
 
 
-    <script>
+    <!-- START -->
+
+    <div id="startScreen">
+
+        <div class="game-icon">
+            🎮
+        </div>
+
+        <h1>
+            Hey <span>Kiyo</span> :)
+        </h1>
+
+        <p>
+            I have a small request for you...
+
+            <br>
+
+            and you probably already know
+            what this is about. 🙄
+
+            <br><br>
+
+            Just humor me for a second. 🎀
+        </p>
+
+        <button id="startButton">
+            see what I want 👀
+        </button>
+
+    </div>
 
 
-        /* ==========================
-           ELEMENTS
-        ========================== */
+    <!-- QUESTION SCREEN -->
 
-        const startScreen =
-            document.getElementById(
-                "startScreen"
-            );
+    <div id="questionScreen">
 
+        <div class="request-label">
+            VERY IMPORTANT QUESTION 🎮
+        </div>
 
-        const questionScreen =
-            document.getElementById(
-                "questionScreen"
-            );
+        <h2 id="question">
+            Kiyo, would you like to play ML with me? 🥺
+        </h2>
 
+        <div class="buttonArea">
 
-        const finalScreen =
-            document.getElementById(
-                "finalScreen"
-            );
+            <button
+                class="answerButton"
+                id="yesButton">
+                YES :)
+            </button>
 
+            <button
+                class="answerButton"
+                id="noButton">
+                NO 😭
+            </button>
 
-        const declinedScreen =
-            document.getElementById(
-                "declinedScreen"
-            );
+        </div>
 
-
-        const startButton =
-            document.getElementById(
-                "startButton"
-            );
+    </div>
 
 
-        const yesButton =
-            document.getElementById(
-                "yesButton"
-            );
+    <!-- ACCEPTED -->
+
+    <div id="finalScreen">
+
+        <div class="final-icon">
+            🎮✨
+        </div>
+
+        <h1>
+            MATCH ACCEPTED! 🎀
+        </h1>
+
+        <p>
+
+            <span class="final-message">
+                I knew you wouldn't say no to me
+                you tsundere 😭
+            </span>
+
+            <br><br>
+
+            See? That wasn't so hard. 🙄
+
+            <br><br>
+
+            <span class="miss-you">
+                i miss u :3
+            </span>
+
+        </p>
+
+    </div>
 
 
-        const noButton =
-            document.getElementById(
-                "noButton"
-            );
+    <!-- DECLINED -->
+
+    <div id="declinedScreen">
+
+        <div class="final-icon">
+            🥲
+        </div>
+
+        <h1>
+            okay then...
+        </h1>
+
+        <p>
+
+            I tried. 😭
+
+            <br><br>
+
+            Ryuen is disappointed.
+
+            <br>
+
+            Very disappointed.
+
+            <br><br>
+
+            You still owe me food though. 🙄
+
+        </p>
+
+    </div>
+
+</div>
 
 
-        const question =
-            document.getElementById(
-                "question"
-            );
+<script>
 
+    /* ==========================
+       ELEMENTS
+    ========================== */
 
-        const buttonArea =
-            document.querySelector(
-                ".buttonArea"
-            );
+    const startScreen =
+        document.getElementById(
+            "startScreen"
+        );
 
+    const questionScreen =
+        document.getElementById(
+            "questionScreen"
+        );
 
-        /* ==========================
-           NO COUNTER
-        ========================== */
+    const finalScreen =
+        document.getElementById(
+            "finalScreen"
+        );
 
-        let noCount = 0;
+    const declinedScreen =
+        document.getElementById(
+            "declinedScreen"
+        );
 
+    const startButton =
+        document.getElementById(
+            "startButton"
+        );
 
-        /* ==========================
-           QUESTIONS
-        ========================== */
+    const yesButton =
+        document.getElementById(
+            "yesButton"
+        );
 
-        const questions = [
+    const noButton =
+        document.getElementById(
+            "noButton"
+        );
 
-            "Kiyo, would you like to play ML with me? 🥺",
+    const question =
+        document.getElementById(
+            "question"
+        );
 
-            "Why not? 🥲",
-
-            "Do you really not want to? 🥺",
-
-            "Please Kiyo, I want to play with you 😭",
-
-            "You'll be blessed with my presence. 😌",
-
-            "Come on... just one game? 🎮",
-
-            "Kiyo... you're really saying no to me? 😭",
-
-            "Okay but pleaseeee. 🥺",
-
-            "Just one match. Then you can go back to ignoring me. 🙄"
-
-        ];
-
-
-        /* ==========================
-           START BUTTON
-        ========================== */
-
-        startButton.addEventListener(
-            "click",
-            function() {
-
-                startScreen.style.display =
-                    "none";
-
-                questionScreen.style.display =
-                    "flex";
-
-            }
+    const buttonArea =
+        document.querySelector(
+            ".buttonArea"
         );
 
 
-        /* ==========================
-           YES BUTTON
-        ========================== */
+    /* ==========================
+       NO COUNTER
+    ========================== */
 
-        yesButton.addEventListener(
-            "click",
-            function() {
+    let noCount = 0;
 
-                questionScreen.style.display =
-                    "none";
 
-                finalScreen.style.display =
-                    "flex";
+    /* ==========================
+       QUESTIONS
+    ========================== */
+
+    const questions = [
+
+        "Kiyo, would you like to play ML with me? 🥺",
+
+        "Why not? 🥲",
+
+        "Do you really not want to? 🥺",
+
+        "Please Kiyo, I want to play with you 😭",
+
+        "You'll be blessed with my presence. 😌",
+
+        "Come on... just one game? 🎮",
+
+        "Kiyo... you're really saying no to me? 😭",
+
+        "Okay but pleaseeee. 🥺",
+
+        "Just one match. Then you can go back to ignoring me. 🙄"
+
+    ];
+
+
+    /* ==========================
+       START BUTTON
+    ========================== */
+
+    startButton.addEventListener(
+        "click",
+        function() {
+
+            startScreen.style.display =
+                "none";
+
+            questionScreen.style.display =
+                "flex";
+
+        }
+    );
+
+
+    /* ==========================
+       YES BUTTON
+    ========================== */
+
+    yesButton.addEventListener(
+        "click",
+        function() {
+
+            questionScreen.style.display =
+                "none";
+
+            finalScreen.style.display =
+                "flex";
+
+        }
+    );
+
+
+    /* ==========================
+       NO BUTTON
+    ========================== */
+
+    noButton.addEventListener(
+        "click",
+        function() {
+
+            noCount++;
+
+
+            /* Change message */
+
+            if (
+                noCount <
+                questions.length
+            ) {
+
+                question.innerText =
+                    questions[noCount];
 
             }
-        );
 
+            else {
 
-        /* ==========================
-           NO BUTTON
-        ========================== */
-
-        noButton.addEventListener(
-            "click",
-            function() {
-
-                noCount++;
-
-
-                /* Change message */
-
-                if (
-                    noCount <
-                    questions.length
-                ) {
-
-                    question.innerText =
-                        questions[noCount];
-
-                }
-
-                else {
-
-                    question.innerText =
-                        "Kiyo please... just one game. 😭";
-
-                }
-
-
-                /* Shake */
-
-                noButton.classList.remove(
-                    "shake"
-                );
-
-
-                void noButton.offsetWidth;
-
-
-                noButton.classList.add(
-                    "shake"
-                );
-
-
-                /* Move */
-
-                moveNoButton();
+                question.innerText =
+                    "Kiyo please... just one game. 😭";
 
             }
+
+
+            /* Shake */
+
+            noButton.classList.remove(
+                "shake"
+            );
+
+            void noButton.offsetWidth;
+
+            noButton.classList.add(
+                "shake"
+            );
+
+
+            /* Move */
+
+            moveNoButton();
+
+        }
+    );
+
+
+    /* ==========================
+       CHECK IF BUTTONS OVERLAP
+    ========================== */
+
+    function buttonsOverlap(
+        x,
+        y,
+        width,
+        height,
+        yesRect,
+        areaRect
+    ) {
+
+        const noLeft =
+            areaRect.left + x;
+
+        const noTop =
+            areaRect.top + y;
+
+        const noRight =
+            noLeft + width;
+
+        const noBottom =
+            noTop + height;
+
+        const yesLeft =
+            yesRect.left;
+
+        const yesTop =
+            yesRect.top;
+
+        const yesRight =
+            yesRect.right;
+
+        const yesBottom =
+            yesRect.bottom;
+
+
+        return !(
+            noRight < yesLeft - 15 ||
+            noLeft > yesRight + 15 ||
+            noBottom < yesTop - 15 ||
+            noTop > yesBottom + 15
         );
+    }
 
 
-        /* ==========================
-           MOVE NO BUTTON
-        ========================== */
+    /* ==========================
+       MOVE NO BUTTON
+    ========================== */
 
-        function moveNoButton() {
+    function moveNoButton() {
 
-            const areaRect =
-                buttonArea.getBoundingClientRect();
+        const areaRect =
+            buttonArea.getBoundingClientRect();
+
+        const buttonRect =
+            noButton.getBoundingClientRect();
+
+        const yesRect =
+            yesButton.getBoundingClientRect();
 
 
-            const buttonRect =
-                noButton.getBoundingClientRect();
-
-
-            const maxX =
+        const maxX =
+            Math.max(
+                0,
                 areaRect.width -
-                buttonRect.width;
+                buttonRect.width
+            );
 
-
-            const maxY =
+        const maxY =
+            Math.max(
+                0,
                 areaRect.height -
-                buttonRect.height;
+                buttonRect.height
+            );
 
 
-            let randomX =
+        let randomX;
+        let randomY;
+
+        let attempts = 0;
+
+
+        /* Keep trying until NO
+           doesn't overlap YES */
+
+        do {
+
+            randomX =
                 Math.random() *
                 maxX;
 
-
-            let randomY =
+            randomY =
                 Math.random() *
                 maxY;
 
-
-            /* YES button position */
-
-            const yesRect =
-                yesButton.getBoundingClientRect();
-
-
-            const yesX =
-                yesRect.left -
-                areaRect.left;
-
-
-            const yesY =
-                yesRect.top -
-                areaRect.top;
-
-
-            /* Distance from YES */
-
-            const distance =
-                Math.sqrt(
-                    Math.pow(
-                        randomX - yesX,
-                        2
-                    )
-                    +
-                    Math.pow(
-                        randomY - yesY,
-                        2
-                    )
-                );
-
-
-            /*
-             * If too close to YES,
-             * pick another location.
-             */
-
-            if (distance < 130) {
-
-                randomX =
-                    Math.random() *
-                    maxX;
-
-                randomY =
-                    Math.random() *
-                    maxY;
-
-            }
-
-
-            noButton.style.left =
-                randomX + "px";
-
-
-            noButton.style.top =
-                randomY + "px";
+            attempts++;
 
         }
 
-    </script>
+        while (
+            buttonsOverlap(
+                randomX,
+                randomY,
+                buttonRect.width,
+                buttonRect.height,
+                yesRect,
+                areaRect
+            )
+            &&
+            attempts < 100
+        );
+
+
+        noButton.style.left =
+            randomX + "px";
+
+        noButton.style.top =
+            randomY + "px";
+    }
+
+</script>
+```
 
 </body>
 </html>
